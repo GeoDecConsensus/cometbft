@@ -137,7 +137,7 @@ func (memR *Reactor) RemovePeer(peer p2p.Peer, _ interface{}) {
 // Receive implements Reactor.
 // It adds any received transactions to the mempool.
 func (memR *Reactor) Receive(e p2p.Envelope) {
-	memR.Logger.Debug("Receive", "src", e.Src, "chId", e.ChannelID, "msg", e.Message)
+	memR.Logger.Debug("Receive", "src", e.Src, "chId", e.ChannelID, "msg", "e.Message")
 	switch msg := e.Message.(type) {
 	case *protomem.Txs:
 		protoTxs := msg.GetTxs()
@@ -155,9 +155,9 @@ func (memR *Reactor) Receive(e p2p.Envelope) {
 			ntx := types.Tx(tx)
 			err = memR.mempool.CheckTx(ntx, nil, txInfo)
 			if errors.Is(err, ErrTxInCache) {
-				memR.Logger.Debug("Tx already exists in cache", "tx", ntx.String())
+				memR.Logger.Debug("Tx already exists in cache", "tx", "ntx.String()")
 			} else if err != nil {
-				memR.Logger.Info("Could not check tx", "tx", ntx.String(), "err", err)
+				memR.Logger.Info("Could not check tx", "tx", "ntx.String()", "err", err)
 			}
 		}
 	default:
