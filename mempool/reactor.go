@@ -137,7 +137,7 @@ func (memR *Reactor) RemovePeer(peer p2p.Peer, _ interface{}) {
 // Receive implements Reactor.
 // It adds any received transactions to the mempool.
 func (memR *Reactor) Receive(e p2p.Envelope) {
-	memR.Logger.Debug("Receive", "src", e.Src, "chId", e.ChannelID, "msg", "e.Message")
+	memR.Logger.Debug("Receive", "src", "e.Src", "chId", e.ChannelID, "msg", "e.Message")
 	switch msg := e.Message.(type) {
 	case *protomem.Txs:
 		protoTxs := msg.GetTxs()
