@@ -778,7 +778,7 @@ OUTER_LOOP:
 		// If peer is lagging by height 1, send LastCommit.
 		if prs.Height != 0 && rs.Height == prs.Height+1 {
 			if ps.PickSendVote(rs.LastCommit) {
-				logger.Debug("Picked rs.LastCommit to send", "height", prs.Height)
+				// logger.Debug("Picked rs.LastCommit to send", "height", prs.Height)
 				continue OUTER_LOOP
 			}
 		}
@@ -839,7 +839,7 @@ func (*Reactor) gossipVotesForHeight(
 	// If there are lastCommits to send...
 	if prs.Step == cstypes.RoundStepNewHeight {
 		if ps.PickSendVote(rs.LastCommit) {
-			logger.Debug("Picked rs.LastCommit to send")
+			// logger.Debug("Picked rs.LastCommit to send")
 			return true
 		}
 	}
@@ -847,8 +847,8 @@ func (*Reactor) gossipVotesForHeight(
 	if prs.Step <= cstypes.RoundStepPropose && prs.Round != -1 && prs.Round <= rs.Round && prs.ProposalPOLRound != -1 {
 		if polPrevotes := rs.Votes.Prevotes(prs.ProposalPOLRound); polPrevotes != nil {
 			if ps.PickSendVote(polPrevotes) {
-				logger.Debug("Picked rs.Prevotes(prs.ProposalPOLRound) to send",
-					"round", prs.ProposalPOLRound)
+				// logger.Debug("Picked rs.Prevotes(prs.ProposalPOLRound) to send",
+				// 	"round", prs.ProposalPOLRound)
 				return true
 			}
 		}
@@ -856,21 +856,21 @@ func (*Reactor) gossipVotesForHeight(
 	// If there are prevotes to send...
 	if prs.Step <= cstypes.RoundStepPrevoteWait && prs.Round != -1 && prs.Round <= rs.Round {
 		if ps.PickSendVote(rs.Votes.Prevotes(prs.Round)) {
-			logger.Debug("Picked rs.Prevotes(prs.Round) to send", "round", prs.Round)
+			// logger.Debug("Picked rs.Prevotes(prs.Round) to send", "round", prs.Round)
 			return true
 		}
 	}
 	// If there are precommits to send...
 	if prs.Step <= cstypes.RoundStepPrecommitWait && prs.Round != -1 && prs.Round <= rs.Round {
 		if ps.PickSendVote(rs.Votes.Precommits(prs.Round)) {
-			logger.Debug("Picked rs.Precommits(prs.Round) to send", "round", prs.Round)
+			// logger.Debug("Picked rs.Precommits(prs.Round) to send", "round", prs.Round)
 			return true
 		}
 	}
 	// If there are prevotes to send...Needed because of validBlock mechanism
 	if prs.Round != -1 && prs.Round <= rs.Round {
 		if ps.PickSendVote(rs.Votes.Prevotes(prs.Round)) {
-			logger.Debug("Picked rs.Prevotes(prs.Round) to send", "round", prs.Round)
+			// logger.Debug("Picked rs.Prevotes(prs.Round) to send", "round", prs.Round)
 			return true
 		}
 	}
@@ -878,8 +878,8 @@ func (*Reactor) gossipVotesForHeight(
 	if prs.ProposalPOLRound != -1 {
 		if polPrevotes := rs.Votes.Prevotes(prs.ProposalPOLRound); polPrevotes != nil {
 			if ps.PickSendVote(polPrevotes) {
-				logger.Debug("Picked rs.Prevotes(prs.ProposalPOLRound) to send",
-					"round", prs.ProposalPOLRound)
+				// logger.Debug("Picked rs.Prevotes(prs.ProposalPOLRound) to send",
+				// 	"round", prs.ProposalPOLRound)
 				return true
 			}
 		}
@@ -1393,12 +1393,12 @@ func (ps *PeerState) SetHasVote(vote *types.Vote) {
 }
 
 func (ps *PeerState) setHasVote(height int64, round int32, voteType types.SignedMsgType, index int32) {
-	ps.logger.Debug("setHasVote",
-		"peerH/R",
-		log.NewLazySprintf("%d/%d", ps.PRS.Height, ps.PRS.Round),
-		"H/R",
-		log.NewLazySprintf("%d/%d", height, round),
-		"type", voteType, "index", index)
+	// ps.logger.Debug("setHasVote",
+	// 	"peerH/R",
+	// 	log.NewLazySprintf("%d/%d", ps.PRS.Height, ps.PRS.Round),
+	// 	"H/R",
+	// 	log.NewLazySprintf("%d/%d", height, round),
+	// 	"type", voteType, "index", index)
 
 	// NOTE: some may be nil BitArrays -> no side effects.
 	psVotes := ps.getVoteBitArray(height, round, voteType)
