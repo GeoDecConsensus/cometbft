@@ -2252,15 +2252,15 @@ func (cs *State) tryAddVote(vote *types.Vote, peerID p2p.ID) (bool, error) {
 }
 
 func (cs *State) addVote(vote *types.Vote, peerID p2p.ID) (added bool, err error) {
-	cs.Logger.Debug(
-		"adding vote",
-		"vote_height", vote.Height,
-		"vote_type", vote.Type,
-		"val_index", vote.ValidatorIndex,
-		"cs_height", cs.Height,
-		"extLen", len(vote.Extension),
-		"extSigLen", len(vote.ExtensionSignature),
-	)
+	// cs.Logger.Debug(
+	// 	"adding vote",
+	// 	"vote_height", vote.Height,
+	// 	"vote_type", vote.Type,
+	// 	"val_index", vote.ValidatorIndex,
+	// 	"cs_height", cs.Height,
+	// 	"extLen", len(vote.Extension),
+	// 	"extSigLen", len(vote.ExtensionSignature),
+	// )
 
 	if vote.Height < cs.Height || (vote.Height == cs.Height && vote.Round < cs.Round) {
 		cs.metrics.MarkLateVote(vote.Type)
